@@ -1,22 +1,7 @@
 package me.chaeyoung.jpa.user;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserRepository {
-
-    @PersistenceContext
-    EntityManager entityManager;
-
-    public User insertUser (User user){
-        entityManager.persist(user);
-        return user;
-    }
-
-    public User selectUser (Long id){
-        return entityManager.find(User.class,id);
-    }
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
