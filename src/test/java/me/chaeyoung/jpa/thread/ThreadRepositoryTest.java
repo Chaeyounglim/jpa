@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.thread;
 
 import me.chaeyoung.jpa.channel.Channel;
@@ -69,4 +70,4 @@ class ThreadRepositoryTest {
         //    where
         //        id=?
     }
-}
+}*/

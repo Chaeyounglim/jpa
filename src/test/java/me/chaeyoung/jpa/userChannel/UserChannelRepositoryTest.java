@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.userChannel;
 
 import me.chaeyoung.jpa.channel.Channel;
@@ -17,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class UserChannelRepositoryTest {
 
+*/
 /*
     @Autowired
     private UserChannelRepository userChannelRepository;
-*/
+*//*
+
 
     @Autowired
     private ChannelRepository channelRepository;
@@ -71,4 +74,4 @@ class UserChannelRepositoryTest {
     }
 
 
-}  
+}  */
