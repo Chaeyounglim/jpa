@@ -1,7 +1,9 @@
 package me.chaeyoung.jpa.userChannel;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.RepositoryDefinition;
 
-public interface UserChannelRepository extends JpaRepository<UserChannel, Long> {
+@RepositoryDefinition(domainClass = UserChannel.class, idClass = Long.class)
+public interface UserChannelRepository {
+
 
 }

@@ -1,7 +1,12 @@
 package me.chaeyoung.jpa.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+import org.springframework.data.repository.RepositoryDefinition;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+@RepositoryDefinition(domainClass = User.class, idClass = Long.class)
+public interface UserRepository {
+
+  Optional<User> findByUsername(String username);
+  // 해당 메서드 외에는 기능할 수 없도록 Repository 기능 제한
 
 }
