@@ -19,6 +19,10 @@ public class UserChannel {
     /**
      * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", nullable = false)
+    private Long id;
 
     /**
      * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
@@ -33,16 +37,12 @@ public class UserChannel {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-
-    @EmbeddedId
-    private UserChannelId userChannelId;
-
     @ManyToOne
-    @MapsId("user_id")
+    //@MapsId("user_id")
     private User user;
 
     @ManyToOne
-    @MapsId("channel_id")
+    //@MapsId("channel_id")
     private Channel channel;
 
     /**

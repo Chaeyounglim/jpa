@@ -54,7 +54,7 @@ public class Channel {
     // Set 은 List 와는 다르게 저장된 값이 순서가 없어 중복 미허용.
     // LinkedHashSet 은 순서 보장
 
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
     private Set<UserChannel> userChannels = new LinkedHashSet<>();
 
 
