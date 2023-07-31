@@ -1,8 +1,10 @@
 package me.chaeyoung.jpa.user;
 
-import me.chaeyoung.jpa.my.MyRepository;
 
-public interface UserRepository extends MyRepository<User, Long> {
+import org.springframework.data.repository.RepositoryDefinition;
+
+@RepositoryDefinition(domainClass = User.class, idClass = Long.class)
+public interface UserRepository {
 
 
 }

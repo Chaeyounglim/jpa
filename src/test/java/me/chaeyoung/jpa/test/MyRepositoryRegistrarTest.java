@@ -1,9 +1,9 @@
+/*
 package me.chaeyoung.jpa.test;
 
 // TestApplication.java
 
 import me.chaeyoung.jpa.my.MyRepository;
-import me.chaeyoung.jpa.my.MyRepositoryRegistrar;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,4 +28,4 @@ public class MyRepositoryRegistrarTest {
         // then
         System.out.println(savedData);
     }
-}
+}*/
