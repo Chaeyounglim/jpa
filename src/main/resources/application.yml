@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/messenger
+    username: chaeyoung
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true # 콘솔에 출력 설정
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate.sql: debug
+    org.hibernate.type: trace # 쿼리 변수 출력
