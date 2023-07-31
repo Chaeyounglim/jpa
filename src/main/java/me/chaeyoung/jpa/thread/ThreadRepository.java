@@ -1,9 +1,9 @@
 package me.chaeyoung.jpa.thread;
 
-import org.springframework.data.repository.RepositoryDefinition;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@RepositoryDefinition(domainClass = Thread.class, idClass = Long.class)
+//@RepositoryDefinition(domainClass = Thread.class, idClass = Long.class)
 
-public interface ThreadRepository {
+public interface ThreadRepository extends JpaRepository<Thread, Long> {
 
 }

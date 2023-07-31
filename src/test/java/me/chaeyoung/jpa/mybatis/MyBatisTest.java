@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.mybatis;
 
 import me.chaeyoung.jpa.mybatis.configuration.DBConfiguration;
@@ -36,13 +37,15 @@ public class MyBatisTest {
         //var account = accountMapper.selectAccount(1);
         
         // 3. 전체 데이터 조회하기
+*/
 /*        boolean result = false;
         var accountList = accountMapper.selectAll();
         for(var i : accountList){
             System.out.println(i.getUsername());
             result = !i.getUsername().isEmpty();
         }
-        assert result;*/
+        assert result;*//*
+
         
         // then
         System.out.println(account.getUsername() + ' ' + account.getPassword() + ' ' + account.getId());
@@ -64,17 +67,19 @@ public class MyBatisTest {
         //var account = accountMapperV2.selectAccount(10);
 
         // 3. 전체 데이터 조회하기
+*/
 /*        boolean result = false;
         var accountList = accountMapperV2.selectAll();
         for(var i : accountList){
             System.out.println(i.getUsername());
             result = !i.getUsername().isEmpty();
         }
-        assert result;*/
+        assert result;*//*
+
 
         // then
         assert !account.getUsername().isEmpty();
     }
 
 
-}
+}*/

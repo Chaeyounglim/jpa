@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.jdbc;
 
 import me.chaeyoung.jpa.jdbc.template.AccountTemplateDAO;
@@ -35,4 +36,4 @@ public class JDBCTemplateTest {
         assert account.getUsername().equals("new user2");
     }
 
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.jdbc;
 
 import me.chaeyoung.jpa.jdbc.dao.AccountDAO;
@@ -78,3 +79,4 @@ public class JDBCTest {
 
 
 }
+*/

@@ -2,11 +2,10 @@ package me.chaeyoung.jpa.my;
 
 import java.util.List;
 
-public interface MyRepository<T> {
+public interface MyRepository {
 
-  void delete(T entity);
+//  void delete(T entity);
 
   List<String> findNameAll();
-
 
 }
