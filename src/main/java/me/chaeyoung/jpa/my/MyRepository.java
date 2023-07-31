@@ -1,23 +1,13 @@
 package me.chaeyoung.jpa.my;
 
-// MyRepository.java
+import java.io.Serializable;
+import java.util.Optional;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.Repository;
 
-import lombok.Setter;
+@NoRepositoryBean
+public interface MyRepository<User, ID extends Serializable> extends Repository<User, ID> {
 
-import java.util.HashMap;
+  Optional<User> findByUsername(String username);
 
-@Setter
-public class MyRepository {
-
-    private HashMap<Long, String> dataTable; // DB 테이블을 의미
-
-    public String find(Long id) {
-        return dataTable.getOrDefault(id, "");
-    }
-
-    public Long save(String data) {
-        var newId = Long.valueOf(dataTable.size());
-        this.dataTable.put(newId, data);
-        return newId;
-    }
 }
