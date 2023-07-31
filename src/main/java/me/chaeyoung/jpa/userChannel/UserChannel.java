@@ -14,7 +14,6 @@ import me.chaeyoung.jpa.user.User;
 
 // jpa
 @Entity
-@IdClass(UserChannelId.class)
 public class UserChannel {
 
     /**
@@ -34,14 +33,16 @@ public class UserChannel {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-    @Id
+
+    @EmbeddedId
+    private UserChannelId userChannelId;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @MapsId("user_id")
     private User user;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "channel_id")
+    @MapsId("channel_id")
     private Channel channel;
 
     /**
