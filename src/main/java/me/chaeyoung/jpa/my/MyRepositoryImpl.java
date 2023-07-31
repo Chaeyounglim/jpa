@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MyRepositoryImpl implements MyRepository<User> {
 
   @Autowired
-  EntityManager entityManager;
+  private EntityManager entityManager;
 
   @Override
   public void delete(User user) {

@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-//@Import(MyRepositoryImpl.class) // 빈 주입하기
 @SpringBootTest
 @Transactional
 @Rollback(value = false)
@@ -43,7 +42,6 @@ public class MyUserRepositoryTest {
     // then
     Assertions.assertThat(
         userNameList.containsAll(List.of(newUser1.getUsername(), newUser2.getUsername())));
-
   }
 
 }
