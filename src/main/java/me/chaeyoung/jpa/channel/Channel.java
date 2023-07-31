@@ -49,12 +49,12 @@ public class Channel {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-    @OneToMany(mappedBy="channel")
-    private Set<Thread> threads = new LinkedHashSet <>();
     // Set 은 List 와는 다르게 저장된 값이 순서가 없어 중복 미허용.
     // LinkedHashSet 은 순서 보장
+    @OneToMany(mappedBy="channel", cascade = CascadeType.ALL, orphanRemoval=true)
+    private Set<Thread> threads = new LinkedHashSet <>();
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserChannel> userChannels = new LinkedHashSet<>();
 
 
