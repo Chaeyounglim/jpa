@@ -4,6 +4,8 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,5 +56,19 @@ public class Mention extends TimeStamp {
    * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
    */
 
+
+  /**
+   * 라이프 사이클 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
+   */
+  @PrePersist
+  public void prePersist() {
+    super.updateCreatedAt();
+    super.updateModifiedAt();
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    super.updateModifiedAt();
+  }
 
 }

@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -76,4 +78,18 @@ public class Thread extends TimeStamp {
   /**
    * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
    */
+
+  /**
+   * 라이프 사이클 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
+   */
+  @PrePersist
+  public void prePersist() {
+    super.updateCreatedAt();
+    super.updateModifiedAt();
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    super.updateModifiedAt();
+  }
 }

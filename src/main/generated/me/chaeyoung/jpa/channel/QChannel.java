@@ -18,25 +18,17 @@ public class QChannel extends EntityPathBase<Channel> {
 
     private static final long serialVersionUID = 1437121808L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QChannel channel = new QChannel("channel");
 
-    public final me.chaeyoung.jpa.common.QTimeStamp _super;
+    public final me.chaeyoung.jpa.common.QTimeStamp _super = new me.chaeyoung.jpa.common.QTimeStamp(this);
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> createdAt;
-
-    // inherited
-    public final me.chaeyoung.jpa.user.QUser createdBy;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> modifiedAt;
-
-    // inherited
-    public final me.chaeyoung.jpa.user.QUser modifiedBy;
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     public final StringPath name = createString("name");
 
@@ -47,28 +39,15 @@ public class QChannel extends EntityPathBase<Channel> {
     public final SetPath<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel> userChannels = this.<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel>createSet("userChannels", me.chaeyoung.jpa.userChannel.UserChannel.class, me.chaeyoung.jpa.userChannel.QUserChannel.class, PathInits.DIRECT2);
 
     public QChannel(String variable) {
-        this(Channel.class, forVariable(variable), INITS);
+        super(Channel.class, forVariable(variable));
     }
 
     public QChannel(Path<? extends Channel> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QChannel(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QChannel(PathMetadata metadata, PathInits inits) {
-        this(Channel.class, metadata, inits);
-    }
-
-    public QChannel(Class<? extends Channel> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this._super = new me.chaeyoung.jpa.common.QTimeStamp(type, metadata, inits);
-        this.createdAt = _super.createdAt;
-        this.createdBy = _super.createdBy;
-        this.modifiedAt = _super.modifiedAt;
-        this.modifiedBy = _super.modifiedBy;
+        super(Channel.class, metadata);
     }
 
 }
