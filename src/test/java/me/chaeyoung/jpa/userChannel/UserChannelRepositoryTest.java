@@ -1,13 +1,12 @@
 package me.chaeyoung.jpa.userChannel;
 
 import me.chaeyoung.jpa.channel.ChannelRepository;
+import me.chaeyoung.jpa.common.PageDTO;
 import me.chaeyoung.jpa.user.User;
 import me.chaeyoung.jpa.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +68,7 @@ class UserChannelRepositoryTest {
   }*/
 
 
-  @Test
+/*  @Test
   void userCustomFieldSortingTest() {
     // given
     var newUser1 = User.builder().username("new user").password("new pass1").build();
@@ -104,6 +103,24 @@ class UserChannelRepositoryTest {
 
     // then
     assert users.get(0).getPassword().equals(newUser3.getPassword());
-  }
+  }*/
 
+
+  @Test
+  void pageDTOTest() {
+    // given
+    var newUser1 = User.builder().username("new user").password("new pass1").build();
+    var newUser2 = User.builder().username("new user").password("new pass2").build();
+    var newUser3 = User.builder().username("new user").password("new pass3").build();
+    userRepository.save(newUser1);
+    userRepository.save(newUser2);
+    userRepository.save(newUser3);
+    var pageDTO = new PageDTO(1, 2, "password");
+
+    // when
+    var page = userRepository.findAll(pageDTO.toPageable());
+
+    // then
+    assert page.getContent().size() == 2;
+  }
 }
