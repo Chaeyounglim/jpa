@@ -26,6 +26,8 @@ public class QThread extends EntityPathBase<Thread> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final SetPath<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention> mentions = this.<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention>createSet("mentions", me.chaeyoung.jpa.mention.Mention.class, me.chaeyoung.jpa.mention.QMention.class, PathInits.DIRECT2);
+
     public final StringPath message = createString("message");
 
     public QThread(String variable) {

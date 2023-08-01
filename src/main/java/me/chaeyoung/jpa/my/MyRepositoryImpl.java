@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.my;
 
 import jakarta.persistence.EntityManager;
@@ -25,4 +26,4 @@ public class MyRepositoryImpl implements MyRepository<User> {
     return entityManager.createQuery("SELECT u.username FROM User AS u", String.class)
         .getResultList();
   }
-}
+}*/
