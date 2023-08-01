@@ -18,9 +18,25 @@ public class QChannel extends EntityPathBase<Channel> {
 
     private static final long serialVersionUID = 1437121808L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QChannel channel = new QChannel("channel");
 
+    public final me.chaeyoung.jpa.common.QTimeStamp _super;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser createdBy;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser modifiedBy;
 
     public final StringPath name = createString("name");
 
@@ -31,15 +47,28 @@ public class QChannel extends EntityPathBase<Channel> {
     public final SetPath<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel> userChannels = this.<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel>createSet("userChannels", me.chaeyoung.jpa.userChannel.UserChannel.class, me.chaeyoung.jpa.userChannel.QUserChannel.class, PathInits.DIRECT2);
 
     public QChannel(String variable) {
-        super(Channel.class, forVariable(variable));
+        this(Channel.class, forVariable(variable), INITS);
     }
 
     public QChannel(Path<? extends Channel> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QChannel(PathMetadata metadata) {
-        super(Channel.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QChannel(PathMetadata metadata, PathInits inits) {
+        this(Channel.class, metadata, inits);
+    }
+
+    public QChannel(Class<? extends Channel> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this._super = new me.chaeyoung.jpa.common.QTimeStamp(type, metadata, inits);
+        this.createdAt = _super.createdAt;
+        this.createdBy = _super.createdBy;
+        this.modifiedAt = _super.modifiedAt;
+        this.modifiedBy = _super.modifiedBy;
     }
 
 }

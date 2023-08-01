@@ -22,7 +22,21 @@ public class QMention extends EntityPathBase<Mention> {
 
     public static final QMention mention = new QMention("mention");
 
+    public final me.chaeyoung.jpa.common.QTimeStamp _super;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser createdBy;
+
     public final QMentionId mentionId;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser modifiedBy;
 
     public final me.chaeyoung.jpa.thread.QThread thread;
 
@@ -46,7 +60,12 @@ public class QMention extends EntityPathBase<Mention> {
 
     public QMention(Class<? extends Mention> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this._super = new me.chaeyoung.jpa.common.QTimeStamp(type, metadata, inits);
+        this.createdAt = _super.createdAt;
+        this.createdBy = _super.createdBy;
         this.mentionId = inits.isInitialized("mentionId") ? new QMentionId(forProperty("mentionId")) : null;
+        this.modifiedAt = _super.modifiedAt;
+        this.modifiedBy = _super.modifiedBy;
         this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
         this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
     }

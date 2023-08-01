@@ -22,13 +22,27 @@ public class QThread extends EntityPathBase<Thread> {
 
     public static final QThread thread = new QThread("thread");
 
+    public final me.chaeyoung.jpa.common.QTimeStamp _super;
+
     public final me.chaeyoung.jpa.channel.QChannel channel;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser createdBy;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final SetPath<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention> mentions = this.<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention>createSet("mentions", me.chaeyoung.jpa.mention.Mention.class, me.chaeyoung.jpa.mention.QMention.class, PathInits.DIRECT2);
 
     public final StringPath message = createString("message");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt;
+
+    // inherited
+    public final me.chaeyoung.jpa.user.QUser modifiedBy;
 
     public QThread(String variable) {
         this(Thread.class, forVariable(variable), INITS);
@@ -48,7 +62,12 @@ public class QThread extends EntityPathBase<Thread> {
 
     public QThread(Class<? extends Thread> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.channel = inits.isInitialized("channel") ? new me.chaeyoung.jpa.channel.QChannel(forProperty("channel")) : null;
+        this._super = new me.chaeyoung.jpa.common.QTimeStamp(type, metadata, inits);
+        this.channel = inits.isInitialized("channel") ? new me.chaeyoung.jpa.channel.QChannel(forProperty("channel"), inits.get("channel")) : null;
+        this.createdAt = _super.createdAt;
+        this.createdBy = _super.createdBy;
+        this.modifiedAt = _super.modifiedAt;
+        this.modifiedBy = _super.modifiedBy;
     }
 
 }
