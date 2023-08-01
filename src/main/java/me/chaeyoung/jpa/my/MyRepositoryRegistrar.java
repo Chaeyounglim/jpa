@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.my;
 
 import java.util.Map;
@@ -24,3 +25,4 @@ public class MyRepositoryRegistrar implements ImportBeanDefinitionRegistrar {
 
   }
 }
+*/
