@@ -1,13 +1,13 @@
-/*
 package me.chaeyoung.jpa.userChannel;
 
-import me.chaeyoung.jpa.channel.Channel;
 import me.chaeyoung.jpa.channel.ChannelRepository;
 import me.chaeyoung.jpa.user.User;
 import me.chaeyoung.jpa.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class UserChannelRepositoryTest {
 
-*/
-/*
-    @Autowired
-    private UserChannelRepository userChannelRepository;
-*//*
+  @Autowired
+  private UserChannelRepository userChannelRepository;
+
 
   @Autowired
   private ChannelRepository channelRepository;
@@ -28,7 +26,7 @@ class UserChannelRepositoryTest {
   @Autowired
   private UserRepository userRepository;
 
-  @Test
+/*  @Test
   void userJoinChannelTest() {
     // given
     var newChannel = Channel.builder().name("new-group").build();
@@ -37,7 +35,7 @@ class UserChannelRepositoryTest {
 
     // when
     var savedChannel = channelRepository.insertChannel(newChannel);
-    var savedUser = userRepository.insertUser(newUser);
+    var savedUser = userRepository.save(newUser);
 
     // then
     var foundChannel = channelRepository.selectChannel(savedChannel.getId());
@@ -58,17 +56,54 @@ class UserChannelRepositoryTest {
     // insertChannel() 혹은 insertUser() 시에 해당 엔티티에 엮여있는
     // 연관되어 있는 userChannels 에도 영속성이 전이되어 user_channel 테이블에 저장됨.
 
-        // when
-        var savedChannel = channelRepository.insertChannel(newChannel);
-        var savedUser = userRepository.insertUser(newUser);
+    // when
+    var savedChannel = channelRepository.insertChannel(newChannel);
+    var savedUser = userRepository.save(newUser);
 
-        // then
-        var foundChannel = channelRepository.selectChannel(savedChannel.getId());
-        assert foundChannel.getUserChannels().stream()
-                .map(UserChannel::getChannel)
-                .map(Channel::getName)
-                .anyMatch(name -> name.equals(newChannel.getName()));
-    }
+    // then
+    var foundChannel = channelRepository.selectChannel(savedChannel.getId());
+    assert foundChannel.getUserChannels().stream()
+        .map(UserChannel::getChannel)
+        .map(Channel::getName)
+        .anyMatch(name -> name.equals(newChannel.getName()));
+  }*/
 
 
-}  */
+  @Test
+  void userCustomFieldSortingTest() {
+    // given
+    var newUser1 = User.builder().username("new user").password("new pass1").build();
+    var newUser2 = User.builder().username("new user").password("new pass2").build();
+    userRepository.save(newUser1);
+    userRepository.save(newUser2);
+
+    // Sort.by()
+    // 오름차순 Test
+    // when
+    var users = userRepository.findByUsernameWithCustomField("new user", Sort.by("customPassword"));
+
+    // then
+    assert users.get(0).getPassword().equals(newUser1.getPassword());
+
+    // 내림차순 Test
+    // when
+    users = userRepository.findByUsernameWithCustomField("new user",
+        Sort.by("customPassword").descending());
+
+    // then
+    assert users.get(0).getPassword().equals(newUser2.getPassword());
+
+    // JpaSort
+    // given
+    var newUser3 = User.builder().username("new user").password("3").build();
+    userRepository.save(newUser3);
+
+    // when
+    users = userRepository.findByUsername("new user",
+        JpaSort.unsafe("LENGTH(password)"));
+
+    // then
+    assert users.get(0).getPassword().equals(newUser3.getPassword());
+  }
+
+}

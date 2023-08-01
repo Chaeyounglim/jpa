@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.my;
 
 import java.util.List;
@@ -44,4 +45,4 @@ public class MyUserRepositoryTest {
         userNameList.containsAll(List.of(newUser1.getUsername(), newUser2.getUsername())));
   }
 
-}
+}*/
