@@ -55,6 +55,10 @@ public class Thread extends TimeStamp {
    * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
    */
   @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  @ManyToOne
   @JoinColumn(name = "channel_id")
   private Channel channel;
 
@@ -65,8 +69,10 @@ public class Thread extends TimeStamp {
   @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<ThreadMention> mentions = new LinkedHashSet<>();
 
+
   @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<ThreadEmotion> emotions = new LinkedHashSet<>();
+
 
   /**
    * 연관관계 편의 메소드 - 반대쪽에는 연관관계 편의 메소드가 없도록 주의합니다.
@@ -80,9 +86,20 @@ public class Thread extends TimeStamp {
     var mention = ThreadMention.builder().user(user).thread(this).build();
     this.mentions.add(mention);
     user.getThreadMentions().add(mention);
-  }
+  } // 유저에도 스레드 멘션 목록에 멘션 추가
+
+  public void addComment(Comment comment) {
+    this.comments.add(comment);
+    comment.setThread(this);
+  } // 커멘트에도 스레드 연관 관계 설정
+
+  public void addEmotion(User user, String body) {
+    var emotion = ThreadEmotion.builder().user(user).thread(this).body(body).build();
+    this.emotions.add(emotion);
+  } // 스레드에 따른 이모션을 추가함
 
   /**
    * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
    */
+
 }

@@ -2,6 +2,7 @@ package me.chaeyoung.jpa.mention;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AccessLevel;
@@ -24,7 +25,7 @@ public class ThreadMention extends TimeStamp {
    * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
    */
   @EmbeddedId
-  private ThreadMentionId threadMentionId;
+  private ThreadMentionId threadMentionId = new ThreadMentionId();
 
 
   /**
@@ -34,6 +35,14 @@ public class ThreadMention extends TimeStamp {
   public ThreadMention(Thread thread, User user) {
     this.user = user;
     this.thread = thread;
+    this.threadMentionId = getThreadMentionId(thread, user);
+  }
+
+  private static ThreadMentionId getThreadMentionId(Thread thread, User user) {
+    var id = new ThreadMentionId();
+    id.setUserId(user.getId());
+    id.setThreadId(thread.getId());
+    return id;
   }
 
   /**
@@ -41,10 +50,12 @@ public class ThreadMention extends TimeStamp {
    */
 
   @ManyToOne
+  @JoinColumn(name = "user_id")
   @MapsId("user_id")
   User user;
 
   @ManyToOne
+  @JoinColumn(name = "thread_id")
   @MapsId("thread_id")
   Thread thread;
 

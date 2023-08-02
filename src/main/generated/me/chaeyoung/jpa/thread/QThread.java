@@ -42,6 +42,8 @@ public class QThread extends EntityPathBase<Thread> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
+    public final me.chaeyoung.jpa.user.QUser user;
+
     public QThread(String variable) {
         this(Thread.class, forVariable(variable), INITS);
     }
@@ -61,6 +63,7 @@ public class QThread extends EntityPathBase<Thread> {
     public QThread(Class<? extends Thread> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.channel = inits.isInitialized("channel") ? new me.chaeyoung.jpa.channel.QChannel(forProperty("channel")) : null;
+        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
     }
 
 }

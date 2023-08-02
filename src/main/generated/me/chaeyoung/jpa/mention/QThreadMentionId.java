@@ -19,7 +19,7 @@ public class QThreadMentionId extends BeanPath<ThreadMentionId> {
 
     public static final QThreadMentionId threadMentionId = new QThreadMentionId("threadMentionId");
 
-    public final NumberPath<Long> mentionId = createNumber("mentionId", Long.class);
+    public final NumberPath<Long> threadId = createNumber("threadId", Long.class);
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 

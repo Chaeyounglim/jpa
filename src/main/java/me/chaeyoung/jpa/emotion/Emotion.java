@@ -28,9 +28,9 @@ public class Emotion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  private Long id;
+  protected Long id;
 
-  private String body;
+  protected String body;
 
   /**
    * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
@@ -41,7 +41,7 @@ public class Emotion {
    */
   @ManyToOne
   @JoinColumn(name = "user_id")
-  private User user;
+  protected User user;
   // 한 유저에 여러개 이모션 존재
 
   /**

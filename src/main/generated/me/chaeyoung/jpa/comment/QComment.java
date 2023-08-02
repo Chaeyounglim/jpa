@@ -32,6 +32,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final me.chaeyoung.jpa.thread.QThread thread;
 
+    public final me.chaeyoung.jpa.user.QUser user;
+
     public QComment(String variable) {
         this(Comment.class, forVariable(variable), INITS);
     }
@@ -51,6 +53,7 @@ public class QComment extends EntityPathBase<Comment> {
     public QComment(Class<? extends Comment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
+        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
     }
 
 }

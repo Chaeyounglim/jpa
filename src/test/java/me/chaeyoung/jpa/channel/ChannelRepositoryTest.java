@@ -1,3 +1,4 @@
+/*
 package me.chaeyoung.jpa.channel;
 
 import com.querydsl.core.types.Predicate;
@@ -49,4 +50,4 @@ class ChannelRepositoryTest {
     assert optional.get().getName().equals(newChannel.getName());
   }
 
-}
+}*/

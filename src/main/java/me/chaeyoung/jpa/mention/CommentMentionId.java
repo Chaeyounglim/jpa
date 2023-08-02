@@ -21,8 +21,8 @@ public class CommentMentionId implements Serializable {
   @Column(name = "user_id")
   private Long userId;
 
-  @Column(name = "mention_id")
-  private Long mentionId;
+  @Column(name = "comment_id")
+  private Long commentId;
 
   @Override
   public boolean equals(Object e) {
@@ -33,13 +33,13 @@ public class CommentMentionId implements Serializable {
       return false;
     }
     CommentMentionId mentionId = (CommentMentionId) e;
-    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getMentionId()
-        , mentionId.getMentionId());
+    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getCommentId()
+        , mentionId.getCommentId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getUserId(), getMentionId());
+    return Objects.hash(getUserId(), getCommentId());
   }
 
 

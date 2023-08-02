@@ -19,7 +19,7 @@ public class QCommentMentionId extends BeanPath<CommentMentionId> {
 
     public static final QCommentMentionId commentMentionId = new QCommentMentionId("commentMentionId");
 
-    public final NumberPath<Long> mentionId = createNumber("mentionId", Long.class);
+    public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 

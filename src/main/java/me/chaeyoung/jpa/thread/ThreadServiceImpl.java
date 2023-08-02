@@ -2,31 +2,22 @@ package me.chaeyoung.jpa.thread;
 
 import com.mysema.commons.lang.IteratorAdapter;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import me.chaeyoung.jpa.channel.Channel;
-import me.chaeyoung.jpa.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.chaeyoung.jpa.common.PageDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class ThreadServiceImpl implements ThreadService {
 
-  @Autowired
-  ThreadRepository threadRepository;
 
-  @Override
-  public List<Thread> selectMentionedThreadList(User user) {
-    // 내가 멘션된 스레드 리스트를 받아와야 함.
-    var thread = QThread.thread;
-    var predicate = thread.mentions.any().user.eq(user);
-    var threads = threadRepository.findAll(predicate);
-    // threads 가 List가 아니여서 타입을 바꿔서 반환 필요
-
-    return IteratorAdapter.asList(threads.iterator());
-  }
+  private final ThreadRepository threadRepository;
 
   @Override
   public List<Thread> selectNotEmptyThreadList(Channel channel) {
-    // 내가 멘션된 스레드 리스트를 받아와야 함.
     var thread = QThread.thread;
 
     // 메세지가 비어있지 않은 해당 채널의 스레드 목록
@@ -36,6 +27,15 @@ public class ThreadServiceImpl implements ThreadService {
 
     return IteratorAdapter.asList(threads.iterator());
   }
+
+  @Transactional(readOnly = true)
+  @Override
+  public Page<Thread> selectMentionedThreadList(Long userId, PageDTO pageDTO) {
+    var cond = ThreadSearchCond.builder().mentionedUserId(userId).build();
+    // 페이징을 할 때, PageRequest 로 요청 받아서 응답은 Pageable 타입으로 반환해야 하므로 -> pageDTO.toPageable()
+    return threadRepository.search(cond, pageDTO.toPageable());
+  }
+
 
   @Override
   public Thread insert(Thread thread) {
