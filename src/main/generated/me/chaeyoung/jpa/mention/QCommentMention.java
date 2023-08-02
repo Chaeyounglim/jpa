@@ -11,51 +11,51 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QMention is a Querydsl query type for Mention
+ * QCommentMention is a Querydsl query type for CommentMention
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QMention extends EntityPathBase<Mention> {
+public class QCommentMention extends EntityPathBase<CommentMention> {
 
-    private static final long serialVersionUID = 1425811422L;
+    private static final long serialVersionUID = -992261609L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QMention mention = new QMention("mention");
+    public static final QCommentMention commentMention = new QCommentMention("commentMention");
 
     public final me.chaeyoung.jpa.common.QTimeStamp _super = new me.chaeyoung.jpa.common.QTimeStamp(this);
+
+    public final me.chaeyoung.jpa.comment.QComment comment;
+
+    public final QCommentMentionId commentMentionId;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    public final QMentionId mentionId;
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
-    public final me.chaeyoung.jpa.thread.QThread thread;
-
     public final me.chaeyoung.jpa.user.QUser user;
 
-    public QMention(String variable) {
-        this(Mention.class, forVariable(variable), INITS);
+    public QCommentMention(String variable) {
+        this(CommentMention.class, forVariable(variable), INITS);
     }
 
-    public QMention(Path<? extends Mention> path) {
+    public QCommentMention(Path<? extends CommentMention> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QMention(PathMetadata metadata) {
+    public QCommentMention(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QMention(PathMetadata metadata, PathInits inits) {
-        this(Mention.class, metadata, inits);
+    public QCommentMention(PathMetadata metadata, PathInits inits) {
+        this(CommentMention.class, metadata, inits);
     }
 
-    public QMention(Class<? extends Mention> type, PathMetadata metadata, PathInits inits) {
+    public QCommentMention(Class<? extends CommentMention> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.mentionId = inits.isInitialized("mentionId") ? new QMentionId(forProperty("mentionId")) : null;
-        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
+        this.comment = inits.isInitialized("comment") ? new me.chaeyoung.jpa.comment.QComment(forProperty("comment"), inits.get("comment")) : null;
+        this.commentMentionId = inits.isInitialized("commentMentionId") ? new QCommentMentionId(forProperty("commentMentionId")) : null;
         this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
     }
 

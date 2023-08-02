@@ -26,12 +26,16 @@ public class QThread extends EntityPathBase<Thread> {
 
     public final me.chaeyoung.jpa.channel.QChannel channel;
 
+    public final SetPath<me.chaeyoung.jpa.comment.Comment, me.chaeyoung.jpa.comment.QComment> comments = this.<me.chaeyoung.jpa.comment.Comment, me.chaeyoung.jpa.comment.QComment>createSet("comments", me.chaeyoung.jpa.comment.Comment.class, me.chaeyoung.jpa.comment.QComment.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final SetPath<me.chaeyoung.jpa.emotion.ThreadEmotion, me.chaeyoung.jpa.emotion.QThreadEmotion> emotions = this.<me.chaeyoung.jpa.emotion.ThreadEmotion, me.chaeyoung.jpa.emotion.QThreadEmotion>createSet("emotions", me.chaeyoung.jpa.emotion.ThreadEmotion.class, me.chaeyoung.jpa.emotion.QThreadEmotion.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final SetPath<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention> mentions = this.<me.chaeyoung.jpa.mention.Mention, me.chaeyoung.jpa.mention.QMention>createSet("mentions", me.chaeyoung.jpa.mention.Mention.class, me.chaeyoung.jpa.mention.QMention.class, PathInits.DIRECT2);
+    public final SetPath<me.chaeyoung.jpa.mention.ThreadMention, me.chaeyoung.jpa.mention.QThreadMention> mentions = this.<me.chaeyoung.jpa.mention.ThreadMention, me.chaeyoung.jpa.mention.QThreadMention>createSet("mentions", me.chaeyoung.jpa.mention.ThreadMention.class, me.chaeyoung.jpa.mention.QThreadMention.class, PathInits.DIRECT2);
 
     public final StringPath message = createString("message");
 

@@ -2,6 +2,7 @@ package me.chaeyoung.jpa.mention;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import lombok.AccessLevel;
@@ -11,13 +12,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class MentionId implements Serializable {
+public class ThreadMentionId implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 7715456209285796293L;
 
   // Serializable 는 id로 설정하기 위해 반드시 필요함.
   @Column(name = "user_id")
   private Long userId;
-  @Column(name = "thread_id")
-  private Long threadId;
+
+  @Column(name = "mention_id")
+  private Long mentionId;
 
   @Override
   public boolean equals(Object e) {
@@ -27,14 +32,14 @@ public class MentionId implements Serializable {
     if (e == null || getClass() != e.getClass()) {
       return false;
     }
-    MentionId mentionId = (MentionId) e;
-    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getThreadId()
-        , mentionId.getThreadId());
+    ThreadMentionId mentionId = (ThreadMentionId) e;
+    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getMentionId()
+        , mentionId.getMentionId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getUserId(), getThreadId());
+    return Objects.hash(getUserId(), getMentionId());
   }
 
 

@@ -63,9 +63,11 @@ public class Channel extends TimeStamp {
   // LinkedHashSet 은 순서 보장
   @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Thread> threads = new LinkedHashSet<>();
+  // 한 채널에 여러개의 스레드 존재
 
   @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<UserChannel> userChannels = new LinkedHashSet<>();
+  // 한 채널에 여러 유저 존재
 
 
   /**
