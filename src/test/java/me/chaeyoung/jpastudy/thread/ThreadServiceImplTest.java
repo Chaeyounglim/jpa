@@ -18,29 +18,29 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest(classes = Application.class)
 class ThreadServiceImplTest {
 
-    @Autowired
-    UserRepository userRepository;
+  @Autowired
+  UserRepository userRepository;
 
-    @Autowired
-    ThreadService threadService;
+  @Autowired
+  ThreadService threadService;
 
-    @Autowired
-    ChannelRepository channelRepository;
+  @Autowired
+  ChannelRepository channelRepository;
 
-    @Autowired
-    CommentRepository commentRepository;
+  @Autowired
+  CommentRepository commentRepository;
 
-    @Autowired
-    private ApplicationContext applicationContext;
+  @Autowired
+  private ApplicationContext applicationContext;
 
-    @Test
-    void testBeans() {
-        String[] beanNames = applicationContext.getBeanDefinitionNames();
-        for (String beanName : beanNames) {
-            Object bean = applicationContext.getBean(beanName);
-            System.out.println(beanName + ": " + bean.getClass().getName());
-        }
+  @Test
+  void testBeans() {
+    String[] beanNames = applicationContext.getBeanDefinitionNames();
+    for (String beanName : beanNames) {
+      Object bean = applicationContext.getBean(beanName);
+      System.out.println(beanName + ": " + bean.getClass().getName());
     }
+  }
 
   /*@Test
   void getMentionsThreadList() {
@@ -79,7 +79,6 @@ class ThreadServiceImplTest {
     // then
     assert !notEmptyThreads.contains(newThread2);
   }*/
-
 
 // 아래 세 개의 테스트의 차이점은 ThreadRepositoryQueryImpl 파일에 fetchJoin()을 확인하면 됨 (하나씩 늘어남) *//
 /*
@@ -145,93 +144,96 @@ class ThreadServiceImplTest {
         assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
     }*/
 
-    @Test
-    @DisplayName("전체 채널에서 내가 멘션된 쓰레드 및 이모티콘 및 댓글(with 이모지) 상세정보 목록 테스트")
-    void selectMentionedThreadEmotionCommentEmotionListTest() {
+  @Test
+  @DisplayName("전체 채널에서 내가 멘션된 쓰레드 및 이모티콘 및 댓글(with 이모지) 상세정보 목록 테스트")
+  void selectMentionedThreadEmotionCommentEmotionListTest() {
 
-        // given
-        var threadWriter = getTestUser("threadWriter", "1");
-        var threadMentionedUser = getTestUser("threadMentionedUser", "2");
-        var threadEmotionUser = getTestUser("threadEmotionUser", "3");
-        var commentUser = getTestUser("commentUser", "4");
-        var commentEmotionUser = getTestUser("commentEmotionUser", "5");
-        var newChannel = Channel.builder().name("channel").type(Channel.Type.PUBLIC).build();
-        var savedChannel = channelRepository.save(newChannel);
-        // 완료
+    // given
+    var threadWriter = getTestUser("threadWriter", "1");
+    var threadMentionedUser = getTestUser("threadMentionedUser", "2");
+    var threadEmotionUser = getTestUser("threadEmotionUser", "3");
+    var commentUser = getTestUser("commentUser", "4");
+    var commentEmotionUser = getTestUser("commentEmotionUser", "5");
+    var newChannel = Channel.builder().name("channel").type(Channel.Type.PUBLIC).build();
+    var savedChannel = channelRepository.save(newChannel);
+    // 완료
 
-        var thread1 = getTestThread("thread1", savedChannel, threadWriter, threadMentionedUser,
-                threadEmotionUser, "threadEmotion1", commentUser, "comment1",
-                commentEmotionUser, "commentEmotion1");
-        var thread2 = getTestThread("thread2", savedChannel, threadWriter, threadMentionedUser,
-                threadEmotionUser, "threadEmotion2", commentUser, "comment2",
-                commentEmotionUser, "commentEmotion2");
-        // DB에 저장까지 모두 completed!
-        
-        // DB 에서 조회해오는 부분이 XX
-        // when
-        var pageDto = PageDTO.builder().currentPage(1).size(100).build();
-        var mentionedTheadList = threadService.selectMentionedTheadList(threadWriter.getId(), pageDto);
-        System.out.println(mentionedTheadList.getTotalElements()); // -> 0으로 나옴. why?
+    var thread1 = getTestThread("thread1", savedChannel, threadWriter, threadMentionedUser,
+        threadEmotionUser, "threadEmotion1", commentUser, "comment1",
+        commentEmotionUser, "commentEmotion1");
+    var thread2 = getTestThread("thread2", savedChannel, threadWriter, threadMentionedUser,
+        threadEmotionUser, "threadEmotion2", commentUser, "comment2",
+        commentEmotionUser, "commentEmotion2");
+    // DB에 저장까지 모두 completed!
 
-        // then
-        assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
-    }
+    // DB 에서 조회해오는 부분이 XX
+    // when
+    var pageDto = PageDTO.builder().currentPage(1).size(100).build();
+    var mentionedTheadList = threadService.selectMentionedTheadList(Long.getLong("2"), pageDto);
+    System.out.println(mentionedTheadList.getTotalElements()); // -> 0으로 나옴. why?
+
+    // then
+    assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
+  }
 
 
-    // User 정보 저장 메서드
-    private User getTestUser(String username, String password) {
-        var newUser = User.builder().username(username).password(password).build();
-        return userRepository.save(newUser);
-    }
+  // User 정보 저장 메서드
+  private User getTestUser(String username, String password) {
+    var newUser = User.builder().username(username).password(password).build();
+    return userRepository.save(newUser);
+  }
 
-    // Comment 엔티티 객체 생성 메서드 (user 연관 관계 설정)
-    private Comment getTestComment(User user, String message) {
-        var newComment = Comment.builder().message(message).build();
-        newComment.setUser(user);
-        return newComment;
-    }
+  // Comment 엔티티 객체 생성 메서드 (user 연관 관계 설정)
+  private Comment getTestComment(User user, String message) {
+    var newComment = Comment.builder().message(message).build();
+    newComment.setUser(user);
+    return newComment;
+  }
 
-    // Thread 정보 저장 메서드 (유저랑 채널 연관관계 설정)
-    private Thread getTestThread(String message, Channel savedChannel, User threadUser) {
-        var newThread = Thread.builder().message(message).build();
-        newThread.setUser(threadUser);
-        newThread.setChannel(savedChannel);
-        return threadService.insert(newThread);
-    }
+  // Thread 정보 저장 메서드 (유저랑 채널 연관관계 설정)
+  private Thread getTestThread(String message, Channel savedChannel, User threadUser) {
+    var newThread = Thread.builder().message(message).build();
+    newThread.setUser(threadUser);
+    newThread.setChannel(savedChannel);
+    return threadService.insert(newThread);
+  }
 
-    // Thread 정보 저장 메서드 (ThreadMention 이랑 연관관계 설정) -> Cascade 속성을 통해 DB에 저장
-    private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser) {
-        var newThead = getTestThread(message, channel, threadUser);
-        newThead.addMention(mentionedUser);
-        return threadService.insert(newThead);
-    }
+  // Thread 정보 저장 메서드 (ThreadMention 이랑 연관관계 설정) -> Cascade 속성을 통해 DB에 저장
+  private Thread getTestThread(String message, Channel channel, User threadUser,
+      User mentionedUser) {
+    var newThead = getTestThread(message, channel, threadUser);
+    newThead.addMention(mentionedUser);
+    return threadService.insert(newThead);
+  }
 
-    // Thread 정보 저장 메서드 (ThreadEmotion 이랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
-    private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
-                                 User emotionUser, String emotionValue) {
-        var newThead = getTestThread(message, channel, threadUser, mentionedUser);
-        newThead.addEmotion(emotionUser, emotionValue);
-        return threadService.insert(newThead);
-    }
+  // Thread 정보 저장 메서드 (ThreadEmotion 이랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
+  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+      User emotionUser, String emotionValue) {
+    var newThead = getTestThread(message, channel, threadUser, mentionedUser);
+    newThead.addEmotion(emotionUser, emotionValue);
+    return threadService.insert(newThead);
+  }
 
-    // Thread 정보 저장 및 댓글에 영속성 전이를 통해 DB에 저장 메서드
-    // (Comment 객체 생성한 후 이를 Thread 랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
-    private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
-                                 User emotionUser, String emotionValue, User commentUser, String commentMessage) {
-        var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser, emotionValue);
-        newThead.setComment(getTestComment(commentUser, commentMessage));
-        return threadService.insert(newThead);
-    }
+  // Thread 정보 저장 및 댓글에 영속성 전이를 통해 DB에 저장 메서드
+  // (Comment 객체 생성한 후 이를 Thread 랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
+  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+      User emotionUser, String emotionValue, User commentUser, String commentMessage) {
+    var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser,
+        emotionValue);
+    newThead.setComment(getTestComment(commentUser, commentMessage));
+    return threadService.insert(newThead);
+  }
 
-    // Thread 정보 저장 및
-    private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
-                                 User emotionUser, String emotionValue, User commentUser, String commentMessage,
-                                 User commentEmotionuser, String commentEmotionValue) {
-        var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser, emotionValue, commentUser, commentMessage);
+  // Thread 정보 저장 및
+  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+      User emotionUser, String emotionValue, User commentUser, String commentMessage,
+      User commentEmotionuser, String commentEmotionValue) {
+    var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser,
+        emotionValue, commentUser, commentMessage);
 
-        newThead.getComments()
-                .forEach(comment -> comment.addEmotion(commentEmotionuser, commentEmotionValue));
+    newThead.getComments()
+        .forEach(comment -> comment.addEmotion(commentEmotionuser, commentEmotionValue));
 
-        return threadService.insert(newThead);
-    }
+    return threadService.insert(newThead);
+  }
 }
