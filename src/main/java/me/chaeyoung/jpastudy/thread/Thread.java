@@ -17,6 +17,7 @@ import java.util.Set;
 
 // lombok
 @Getter
+@Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 // jpa

@@ -57,11 +57,11 @@ public class Channel extends Timestamp {
      * 자식 엔티티의 라이프 사이클이 부모 엔티티와 동일해짐
      * 직접 자식 엔티티의 생명주기를 관리할 수 있게 되므로 자식 엔티티의 Repository 조차 필요하지 않게 됨
      * => 매핑 테이블에서 많이 쓰임 */
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
     // CascadeType.ALL: 저장을 위해서 !
     private Set<Thread> threads = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
     // userChannel에 전이됨
     private Set<UserChannel> userChannels = new LinkedHashSet<>(); // 중복 제거 및 불러오는 시점의 순서 보장
 

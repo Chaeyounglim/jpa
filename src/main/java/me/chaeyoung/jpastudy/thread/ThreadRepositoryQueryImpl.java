@@ -38,8 +38,7 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
                 .forEach(comments -> comments
                         .forEach(comment -> Hibernate.initialize(comment.getEmotions())));
 
-        return PageableExecutionUtils.getPage(threads, pageable,
-                () -> totalSize); // Page 객체로 감싸서 return
+        return PageableExecutionUtils.getPage(threads, pageable, () -> totalSize); // Page 객체로 감싸서 return
     }
 
     private <T> JPAQuery<T> query(Expression<T> expr, ThreadSearchCond cond) {
@@ -48,6 +47,7 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
                 .leftJoin(thread.channel).fetchJoin() // Lazy로 설정된 애들을 조회해온다는 의미
                 .leftJoin(thread.emotions).fetchJoin()
                 .leftJoin(thread.comments).fetchJoin()
+                .leftJoin(thread.mentions).fetchJoin()
                 .where(
                         channelIdEq(cond.getChannelId()),
                         mentionedUserIdEq(cond.getMentionedUserId())
@@ -70,7 +70,6 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
     }
 
     private BooleanExpression mentionedUserIdEq(Long mentionedUserId) {
-        return Objects.nonNull(mentionedUserId) ? thread.mentions.any().user.id.eq(mentionedUserId)
-                : null;
+        return Objects.nonNull(mentionedUserId) ? thread.mentions.any().user.id.eq(mentionedUserId) : null;
     }
 }

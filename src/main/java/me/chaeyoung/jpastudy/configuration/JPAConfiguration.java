@@ -14,7 +14,6 @@ public class JPAConfiguration {
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
-        entityManager.clear();
         return new JPAQueryFactory(entityManager);
     }
 

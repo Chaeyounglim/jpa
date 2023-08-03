@@ -19,6 +19,7 @@ import java.util.Set;
 
 // jpa
 @Entity
+@Table
 public class Comment {
 
     @Id

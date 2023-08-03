@@ -1,6 +1,7 @@
 package me.chaeyoung.jpastudy.thread;
 
 
+import me.chaeyoung.jpastudy.Application;
 import me.chaeyoung.jpastudy.channel.Channel;
 import me.chaeyoung.jpastudy.channel.ChannelRepository;
 import me.chaeyoung.jpastudy.comment.Comment;
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 class ThreadServiceImplTest {
 
     @Autowired
@@ -40,6 +41,7 @@ class ThreadServiceImplTest {
             System.out.println(beanName + ": " + bean.getClass().getName());
         }
     }
+
   /*@Test
   void getMentionsThreadList() {
     // given
@@ -163,14 +165,15 @@ class ThreadServiceImplTest {
         var thread2 = getTestThread("thread2", savedChannel, threadWriter, threadMentionedUser,
                 threadEmotionUser, "threadEmotion2", commentUser, "comment2",
                 commentEmotionUser, "commentEmotion2");
-
+        // DB에 저장까지 모두 completed!
+        
+        // DB 에서 조회해오는 부분이 XX
         // when
         var pageDto = PageDTO.builder().currentPage(1).size(100).build();
-        var mentionedTheadList = threadService.selectMentionedTheadList(Long.getLong("1"), pageDto);
-        //var mentionedTheadList = threadService.selectMentionedTheadList(threadWriter.getId(), pageDto);
+        var mentionedTheadList = threadService.selectMentionedTheadList(threadWriter.getId(), pageDto);
+        System.out.println(mentionedTheadList.getTotalElements()); // -> 0으로 나옴. why?
 
         // then
-        System.out.println("T4 : " + mentionedTheadList.stream().toList().toString());
         assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
     }
 
@@ -210,7 +213,7 @@ class ThreadServiceImplTest {
         newThead.addEmotion(emotionUser, emotionValue);
         return threadService.insert(newThead);
     }
-    
+
     // Thread 정보 저장 및 댓글에 영속성 전이를 통해 DB에 저장 메서드
     // (Comment 객체 생성한 후 이를 Thread 랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
     private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
@@ -220,11 +223,11 @@ class ThreadServiceImplTest {
         return threadService.insert(newThead);
     }
 
+    // Thread 정보 저장 및
     private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
                                  User emotionUser, String emotionValue, User commentUser, String commentMessage,
                                  User commentEmotionuser, String commentEmotionValue) {
         var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser, emotionValue, commentUser, commentMessage);
-        var newComment = getTestComment(commentUser, commentMessage);
 
         newThead.getComments()
                 .forEach(comment -> comment.addEmotion(commentEmotionuser, commentEmotionValue));
