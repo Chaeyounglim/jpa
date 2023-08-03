@@ -6,21 +6,26 @@
     [템플릿 설명]
     - 해당 파일은 SQL 문을 작성하는 곳입니다.
 -->
-<mapper namespace="me.chaeyoung.jpa.mybatis.mapper.AccountMapper">
+<mapper namespace="me.chaeyoung.jpastudy.mybatis.mapper.AccountMapper">
 
-    <select id="selectAll" resultType="me.chaeyoung.jpa.mybatis.vo.AccountMyBatisVO">
-        SELECT id, username, password FROM account
+    <select id="selectAll" resultType="me.chaeyoung.jpastudy.mybatis.vo.AccountMyBatisVO">
+        SELECT id, username, password
+        FROM account
     </select>
 
-    <select id="selectAccountByUsername" resultType="me.chaeyoung.jpa.mybatis.vo.AccountMyBatisVO">
-        SELECT id, username, password FROM account WHERE username = #{username}
+    <select id="selectAccountByUsername" resultType="me.chaeyoung.jpastudy.mybatis.vo.AccountMyBatisVO">
+        SELECT id, username, password
+        FROM account
+        WHERE username = #{username}
     </select>
 
-    <select id="selectAccount" resultType="me.chaeyoung.jpa.mybatis.vo.AccountMyBatisVO">
-    SELECT id, username, password FROM account WHERE id = #{id}
+    <select id="selectAccount" resultType="me.chaeyoung.jpastudy.mybatis.vo.AccountMyBatisVO">
+        SELECT id, username, password
+        FROM account
+        WHERE id = #{id}
     </select>
 
-    <insert id="insertAccount" parameterType="me.chaeyoung.jpa.mybatis.vo.AccountMyBatisVO">
+    <insert id="insertAccount" parameterType="me.chaeyoung.jpastudy.mybatis.vo.AccountMyBatisVO">
         INSERT INTO account(username, password)
         VALUES (#{username}, #{password});
     </insert>
