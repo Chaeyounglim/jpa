@@ -3,15 +3,17 @@ package me.chaeyoung.jpa.channel;
 
 import com.querydsl.core.types.Predicate;
 import java.util.Optional;
+import me.chaeyoung.jpastudy.channel.Channel;
+import me.chaeyoung.jpastudy.channel.ChannelRepository;
+import me.chaeyoung.jpastudy.channel.QChannel;
+import me.chaeyoung.jpastudy.common.RepositoryTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
-@Transactional
-@Rollback(value = false)
+@RepositoryTest
 class ChannelRepositoryTest {
 
   @Autowired
@@ -50,4 +52,5 @@ class ChannelRepositoryTest {
     assert optional.get().getName().equals(newChannel.getName());
   }
 
-}*/
+}
+*/

@@ -170,7 +170,7 @@ class ThreadServiceImplTest {
     // when
     var pageDto = PageDTO.builder().currentPage(1).size(100).build();
     var mentionedTheadList = threadService.selectMentionedTheadList(Long.getLong("2"), pageDto);
-    System.out.println(mentionedTheadList.getTotalElements()); // -> 0으로 나옴. why?
+    System.out.println(mentionedTheadList.toString()); // -> 0으로 나옴. why?
 
     // then
     assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
