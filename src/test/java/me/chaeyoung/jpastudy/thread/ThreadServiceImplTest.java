@@ -12,22 +12,34 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootTest
 class ThreadServiceImplTest {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private ThreadService threadService;
+    ThreadService threadService;
 
     @Autowired
-    private ChannelRepository channelRepository;
+    ChannelRepository channelRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    CommentRepository commentRepository;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Test
+    void testBeans() {
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        for (String beanName : beanNames) {
+            Object bean = applicationContext.getBean(beanName);
+            System.out.println(beanName + ": " + bean.getClass().getName());
+        }
+    }
   /*@Test
   void getMentionsThreadList() {
     // given
@@ -134,24 +146,28 @@ class ThreadServiceImplTest {
     @Test
     @DisplayName("전체 채널에서 내가 멘션된 쓰레드 및 이모티콘 및 댓글(with 이모지) 상세정보 목록 테스트")
     void selectMentionedThreadEmotionCommentEmotionListTest() {
+
         // given
-        var threadWriter = getTestUser("1", "1");
-        var threadMentioneduser = getTestUser("2", "2");
-        var threadEmotionUser = getTestUser("3", "3");
-        var commentUser = getTestUser("4", "4");
-        var commentEmotionedUser = getTestUser("5", "5");
+        var threadWriter = getTestUser("threadWriter", "1");
+        var threadMentionedUser = getTestUser("threadMentionedUser", "2");
+        var threadEmotionUser = getTestUser("threadEmotionUser", "3");
+        var commentUser = getTestUser("commentUser", "4");
+        var commentEmotionUser = getTestUser("commentEmotionUser", "5");
         var newChannel = Channel.builder().name("channel").type(Channel.Type.PUBLIC).build();
         var savedChannel = channelRepository.save(newChannel);
         // 완료
 
-        var thread1 = getTestThread("message", savedChannel, threadWriter, threadMentioneduser,
-                threadEmotionUser, "e1", commentUser, "c1", commentEmotionedUser, "ce1");
-        var thread2 = getTestThread("", savedChannel, threadWriter, threadMentioneduser,
-                threadEmotionUser, "e2", commentUser, "c2", commentEmotionedUser, "ce2");
+        var thread1 = getTestThread("thread1", savedChannel, threadWriter, threadMentionedUser,
+                threadEmotionUser, "threadEmotion1", commentUser, "comment1",
+                commentEmotionUser, "commentEmotion1");
+        var thread2 = getTestThread("thread2", savedChannel, threadWriter, threadMentionedUser,
+                threadEmotionUser, "threadEmotion2", commentUser, "comment2",
+                commentEmotionUser, "commentEmotion2");
 
         // when
         var pageDto = PageDTO.builder().currentPage(1).size(100).build();
-        var mentionedTheadList = threadService.selectMentionedTheadList(threadWriter.getId(), pageDto);
+        var mentionedTheadList = threadService.selectMentionedTheadList(Long.getLong("1"), pageDto);
+        //var mentionedTheadList = threadService.selectMentionedTheadList(threadWriter.getId(), pageDto);
 
         // then
         System.out.println("T4 : " + mentionedTheadList.stream().toList().toString());
@@ -165,14 +181,14 @@ class ThreadServiceImplTest {
         return userRepository.save(newUser);
     }
 
-    // Comment 정보 저장 메서드 (user 연관 관계 설정)
+    // Comment 엔티티 객체 생성 메서드 (user 연관 관계 설정)
     private Comment getTestComment(User user, String message) {
         var newComment = Comment.builder().message(message).build();
         newComment.setUser(user);
-        return commentRepository.save(newComment);
+        return newComment;
     }
 
-    // Thread 정보 저장 메서드
+    // Thread 정보 저장 메서드 (유저랑 채널 연관관계 설정)
     private Thread getTestThread(String message, Channel savedChannel, User threadUser) {
         var newThread = Thread.builder().message(message).build();
         newThread.setUser(threadUser);
@@ -180,23 +196,27 @@ class ThreadServiceImplTest {
         return threadService.insert(newThread);
     }
 
+    // Thread 정보 저장 메서드 (ThreadMention 이랑 연관관계 설정) -> Cascade 속성을 통해 DB에 저장
     private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser) {
         var newThead = getTestThread(message, channel, threadUser);
         newThead.addMention(mentionedUser);
         return threadService.insert(newThead);
     }
 
+    // Thread 정보 저장 메서드 (ThreadEmotion 이랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
     private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
                                  User emotionUser, String emotionValue) {
         var newThead = getTestThread(message, channel, threadUser, mentionedUser);
         newThead.addEmotion(emotionUser, emotionValue);
         return threadService.insert(newThead);
     }
-
+    
+    // Thread 정보 저장 및 댓글에 영속성 전이를 통해 DB에 저장 메서드
+    // (Comment 객체 생성한 후 이를 Thread 랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
     private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
                                  User emotionUser, String emotionValue, User commentUser, String commentMessage) {
         var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser, emotionValue);
-        newThead.addComment(getTestComment(commentUser, commentMessage));
+        newThead.setComment(getTestComment(commentUser, commentMessage));
         return threadService.insert(newThead);
     }
 
@@ -212,98 +232,3 @@ class ThreadServiceImplTest {
         return threadService.insert(newThead);
     }
 }
-
-
-
- /*   @Test
-    @Rollback(value = false)
-    @DisplayName("전체 채널에서 내가 멘션된 스레드 상세정보 목록 테스트")
-    void selectMentionedThreadListTest() {
-
-        // given
-
-        // 유저
-        var user = getTestUser("new user", "new pass");
-        var emotionUser = getTestUser("emotion user", "emotion pass");
-        var commentUser = getTestUser("comment user", "comment pass");
-        var commentEmotionUser = getTestUser("commentEmotionUser user", "commentEmotionUser pass");
-
-        // 채널
-        var channel = getTestChannel();
-        System.out.println("채널명" + channel.getName());
-
-        // 스레드
-        var thread1 = getTestThread("message", channel, user, commentEmotionUser, "comment emotion1",
-                emotionUser, "emotion1", commentUser, "comment1");
-        var thread2 = getTestThread("", channel, user, commentEmotionUser, "comment emotion2",
-                emotionUser, "emotion2", commentUser, "comment2");
-
-        // when
-        var pageDTO = PageDTO.builder().currentPage(1).size(10).build();
-        var mentionedThreads = threadService.selectMentionedTheadList(user.getId(), pageDTO);
-        System.out.println("채널명" + channel.getName());
-
-
-        // then
-        assert mentionedThreads.getTotalElements() == 2;
-    }
-
-    private Channel getTestChannel() {
-        var newChannel = Channel.builder().name("c1").type(Type.PUBLIC).build();
-        return channelRepository.save(newChannel);
-    }
-
-    private User getTestUser(String username, String password) {
-        var newUser = User.builder().username(username).password(password).build();
-        return userRepository.save(newUser);
-    }
-
-    private Comment getTestComment(User user, String message) {
-        var newComment = Comment.builder().message(message).build();
-        newComment.setUser(user);
-        return commentRepository.save(newComment);
-    }
-
-    // 스레드에 메시지 값 넣고, 채널 연관관계 설정
-    private Thread getTestThread(String message, Channel savedChannel) {
-        var newThread = Thread.builder().message(message).build();
-        newThread.setChannel(savedChannel); // 양방향이므로 해당 메서드 내에서 채널에도 연관 관계를 설정함
-        return threadService.insert(newThread);
-    }
-
-    // 스레드에 멘션 연관관계 설정
-    private Thread getTestThread(String message, Channel channel, User mentionedUser) {
-        var newThread = getTestThread(message, channel);
-        newThread.addMention(mentionedUser); // 해당 메서드 내에서 유저에 스레드 멘션 목록에 추가
-        return threadService.insert(newThread);
-    }
-
-    // 스레드에 이모션 연관관계 설정
-    private Thread getTestThread(String message, Channel channel, User mentionedUser,
-                                 User emotionUser, String emotionValue) {
-        var newThread = getTestThread(message, channel, mentionedUser);
-        newThread.addEmotion(emotionUser, emotionValue); // 스레드에 따른 이모션 정보 추가
-        return threadService.insert(newThread);
-    }
-
-    private Thread getTestThread(String message, Channel channel, User mentionedUser,
-                                 User emotionUser, String emotionValue, User commentUser, String commentMessage) {
-        var newThread = getTestThread(message, channel, mentionedUser, emotionUser, emotionValue);
-        newThread.addComment(
-                getTestComment(commentUser, commentMessage)); // 스레드에 따른 커멘트 정보 추가, 양방향으로 커멘트에도 추가함
-        return threadService.insert(newThread);
-    }
-
-    private Thread getTestThread(String message, Channel channel, User mentionedUser,
-                                 User emotionUser, String emotionValue, User commentUser, String commentMessage,
-                                 User commentEmotionUser, String commentEmotionValue) {
-
-        var newThread = getTestThread(message, channel, mentionedUser, emotionUser, emotionValue,
-                commentUser, commentMessage);
-        newThread.getComments()
-                .forEach(comment -> comment.addEmotion(commentEmotionUser, commentEmotionValue));
-
-        return threadService.insert(newThread);
-    }
-
-}*/

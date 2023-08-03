@@ -35,7 +35,7 @@ public class ThreadMention extends Timestamp {
         this.user = user;
         this.thread = thread;
         // embedded 할 때는 id를 직접 넣어주어야 함
-        this.threadMentionId = getThreadMentionId(user, thread);
+        this.threadMentionId = this.getThreadMentionId(user, thread);
     }
 
     private static ThreadMentionId getThreadMentionId(User user, Thread thread) {

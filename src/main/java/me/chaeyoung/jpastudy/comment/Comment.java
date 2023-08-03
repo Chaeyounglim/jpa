@@ -36,11 +36,11 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    User user;
 
     @ManyToOne
     @JoinColumn(name = "thread_id")
-    private Thread thread;
+    Thread thread;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<CommentMention> mentions = new LinkedHashSet<>();

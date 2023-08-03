@@ -83,7 +83,7 @@ public class Thread extends Timestamp {
         user.getThreadMentions().add(mention);
     }
 
-    public void addComment(Comment comment) {
+    public void setComment(Comment comment) {
         this.comments.add(comment);
         comment.setThread(this);
     }
