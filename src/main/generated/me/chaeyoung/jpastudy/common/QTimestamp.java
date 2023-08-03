@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.common;
+package me.chaeyoung.jpastudy.common;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -10,29 +10,29 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QTimeStamp is a Querydsl query type for TimeStamp
+ * QTimestamp is a Querydsl query type for Timestamp
  */
 @Generated("com.querydsl.codegen.DefaultSupertypeSerializer")
-public class QTimeStamp extends EntityPathBase<TimeStamp> {
+public class QTimestamp extends EntityPathBase<Timestamp> {
 
-    private static final long serialVersionUID = 296853883L;
+    private static final long serialVersionUID = 2029842878L;
 
-    public static final QTimeStamp timeStamp = new QTimeStamp("timeStamp");
+    public static final QTimestamp timestamp = new QTimestamp("timestamp");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = createDateTime("modifiedAt", java.time.LocalDateTime.class);
 
-    public QTimeStamp(String variable) {
-        super(TimeStamp.class, forVariable(variable));
+    public QTimestamp(String variable) {
+        super(Timestamp.class, forVariable(variable));
     }
 
-    public QTimeStamp(Path<? extends TimeStamp> path) {
+    public QTimestamp(Path<? extends Timestamp> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QTimeStamp(PathMetadata metadata) {
-        super(TimeStamp.class, metadata);
+    public QTimestamp(PathMetadata metadata) {
+        super(Timestamp.class, metadata);
     }
 
 }

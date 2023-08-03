@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.emotion;
+package me.chaeyoung.jpastudy.emotion;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QCommentEmotion extends EntityPathBase<CommentEmotion> {
 
-    private static final long serialVersionUID = 1134164471L;
+    private static final long serialVersionUID = -187403302L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -27,13 +27,13 @@ public class QCommentEmotion extends EntityPathBase<CommentEmotion> {
     //inherited
     public final StringPath body;
 
-    public final me.chaeyoung.jpa.comment.QComment comment;
+    public final me.chaeyoung.jpastudy.comment.QComment comment;
 
     //inherited
     public final NumberPath<Long> id;
 
     // inherited
-    public final me.chaeyoung.jpa.user.QUser user;
+    public final me.chaeyoung.jpastudy.user.QUser user;
 
     public QCommentEmotion(String variable) {
         this(CommentEmotion.class, forVariable(variable), INITS);
@@ -55,7 +55,7 @@ public class QCommentEmotion extends EntityPathBase<CommentEmotion> {
         super(type, metadata, inits);
         this._super = new QEmotion(type, metadata, inits);
         this.body = _super.body;
-        this.comment = inits.isInitialized("comment") ? new me.chaeyoung.jpa.comment.QComment(forProperty("comment"), inits.get("comment")) : null;
+        this.comment = inits.isInitialized("comment") ? new me.chaeyoung.jpastudy.comment.QComment(forProperty("comment"), inits.get("comment")) : null;
         this.id = _super.id;
         this.user = _super.user;
     }

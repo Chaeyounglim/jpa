@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.userChannel;
+package me.chaeyoung.jpastudy.userChannel;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
 public class QUserChannelId extends BeanPath<UserChannelId> {
 
-    private static final long serialVersionUID = -967225035L;
+    private static final long serialVersionUID = 172451954L;
 
     public static final QUserChannelId userChannelId = new QUserChannelId("userChannelId");
 

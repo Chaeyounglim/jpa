@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.user;
+package me.chaeyoung.jpastudy.user;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
 public class QAddress extends BeanPath<Address> {
 
-    private static final long serialVersionUID = -1368662631L;
+    private static final long serialVersionUID = -2062039236L;
 
     public static final QAddress address = new QAddress("address");
 

@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.channel;
+package me.chaeyoung.jpastudy.channel;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,11 +16,11 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QChannel extends EntityPathBase<Channel> {
 
-    private static final long serialVersionUID = 1437121808L;
+    private static final long serialVersionUID = -447591283L;
 
     public static final QChannel channel = new QChannel("channel");
 
-    public final me.chaeyoung.jpa.common.QTimeStamp _super = new me.chaeyoung.jpa.common.QTimeStamp(this);
+    public final me.chaeyoung.jpastudy.common.QTimestamp _super = new me.chaeyoung.jpastudy.common.QTimestamp(this);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -32,11 +32,11 @@ public class QChannel extends EntityPathBase<Channel> {
 
     public final StringPath name = createString("name");
 
-    public final SetPath<me.chaeyoung.jpa.thread.Thread, me.chaeyoung.jpa.thread.QThread> threads = this.<me.chaeyoung.jpa.thread.Thread, me.chaeyoung.jpa.thread.QThread>createSet("threads", me.chaeyoung.jpa.thread.Thread.class, me.chaeyoung.jpa.thread.QThread.class, PathInits.DIRECT2);
+    public final SetPath<me.chaeyoung.jpastudy.thread.Thread, me.chaeyoung.jpastudy.thread.QThread> threads = this.<me.chaeyoung.jpastudy.thread.Thread, me.chaeyoung.jpastudy.thread.QThread>createSet("threads", me.chaeyoung.jpastudy.thread.Thread.class, me.chaeyoung.jpastudy.thread.QThread.class, PathInits.DIRECT2);
 
     public final EnumPath<Channel.Type> type = createEnum("type", Channel.Type.class);
 
-    public final SetPath<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel> userChannels = this.<me.chaeyoung.jpa.userChannel.UserChannel, me.chaeyoung.jpa.userChannel.QUserChannel>createSet("userChannels", me.chaeyoung.jpa.userChannel.UserChannel.class, me.chaeyoung.jpa.userChannel.QUserChannel.class, PathInits.DIRECT2);
+    public final SetPath<me.chaeyoung.jpastudy.userChannel.UserChannel, me.chaeyoung.jpastudy.userChannel.QUserChannel> userChannels = this.<me.chaeyoung.jpastudy.userChannel.UserChannel, me.chaeyoung.jpastudy.userChannel.QUserChannel>createSet("userChannels", me.chaeyoung.jpastudy.userChannel.UserChannel.class, me.chaeyoung.jpastudy.userChannel.QUserChannel.class, PathInits.DIRECT2);
 
     public QChannel(String variable) {
         super(Channel.class, forVariable(variable));

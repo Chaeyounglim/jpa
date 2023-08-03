@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.mention;
+package me.chaeyoung.jpastudy.mention;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,13 +16,13 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QThreadMention extends EntityPathBase<ThreadMention> {
 
-    private static final long serialVersionUID = 45706100L;
+    private static final long serialVersionUID = -551114447L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QThreadMention threadMention = new QThreadMention("threadMention");
 
-    public final me.chaeyoung.jpa.common.QTimeStamp _super = new me.chaeyoung.jpa.common.QTimeStamp(this);
+    public final me.chaeyoung.jpastudy.common.QTimestamp _super = new me.chaeyoung.jpastudy.common.QTimestamp(this);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -30,11 +30,11 @@ public class QThreadMention extends EntityPathBase<ThreadMention> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
-    public final me.chaeyoung.jpa.thread.QThread thread;
+    public final me.chaeyoung.jpastudy.thread.QThread thread;
 
     public final QThreadMentionId threadMentionId;
 
-    public final me.chaeyoung.jpa.user.QUser user;
+    public final me.chaeyoung.jpastudy.user.QUser user;
 
     public QThreadMention(String variable) {
         this(ThreadMention.class, forVariable(variable), INITS);
@@ -54,9 +54,9 @@ public class QThreadMention extends EntityPathBase<ThreadMention> {
 
     public QThreadMention(Class<? extends ThreadMention> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
+        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpastudy.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
         this.threadMentionId = inits.isInitialized("threadMentionId") ? new QThreadMentionId(forProperty("threadMentionId")) : null;
-        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
+        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpastudy.user.QUser(forProperty("user")) : null;
     }
 
 }

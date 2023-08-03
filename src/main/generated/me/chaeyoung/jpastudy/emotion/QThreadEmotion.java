@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.emotion;
+package me.chaeyoung.jpastudy.emotion;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QThreadEmotion extends EntityPathBase<ThreadEmotion> {
 
-    private static final long serialVersionUID = 254662294L;
+    private static final long serialVersionUID = -342158253L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -30,10 +30,10 @@ public class QThreadEmotion extends EntityPathBase<ThreadEmotion> {
     //inherited
     public final NumberPath<Long> id;
 
-    public final me.chaeyoung.jpa.thread.QThread thread;
+    public final me.chaeyoung.jpastudy.thread.QThread thread;
 
     // inherited
-    public final me.chaeyoung.jpa.user.QUser user;
+    public final me.chaeyoung.jpastudy.user.QUser user;
 
     public QThreadEmotion(String variable) {
         this(ThreadEmotion.class, forVariable(variable), INITS);
@@ -56,7 +56,7 @@ public class QThreadEmotion extends EntityPathBase<ThreadEmotion> {
         this._super = new QEmotion(type, metadata, inits);
         this.body = _super.body;
         this.id = _super.id;
-        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
+        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpastudy.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
         this.user = _super.user;
     }
 

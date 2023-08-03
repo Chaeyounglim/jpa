@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.mention;
+package me.chaeyoung.jpastudy.mention;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
 public class QThreadMentionId extends BeanPath<ThreadMentionId> {
 
-    private static final long serialVersionUID = 973891503L;
+    private static final long serialVersionUID = -1340003796L;
 
     public static final QThreadMentionId threadMentionId = new QThreadMentionId("threadMentionId");
 

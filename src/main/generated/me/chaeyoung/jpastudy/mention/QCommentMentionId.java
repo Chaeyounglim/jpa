@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.mention;
+package me.chaeyoung.jpastudy.mention;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
 public class QCommentMentionId extends BeanPath<CommentMentionId> {
 
-    private static final long serialVersionUID = -80664174L;
+    private static final long serialVersionUID = 1203025589L;
 
     public static final QCommentMentionId commentMentionId = new QCommentMentionId("commentMentionId");
 

@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.comment;
+package me.chaeyoung.jpastudy.comment;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,23 +16,23 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QComment extends EntityPathBase<Comment> {
 
-    private static final long serialVersionUID = -1300986936L;
+    private static final long serialVersionUID = 1109267269L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QComment comment = new QComment("comment");
 
-    public final SetPath<me.chaeyoung.jpa.emotion.CommentEmotion, me.chaeyoung.jpa.emotion.QCommentEmotion> emotions = this.<me.chaeyoung.jpa.emotion.CommentEmotion, me.chaeyoung.jpa.emotion.QCommentEmotion>createSet("emotions", me.chaeyoung.jpa.emotion.CommentEmotion.class, me.chaeyoung.jpa.emotion.QCommentEmotion.class, PathInits.DIRECT2);
+    public final SetPath<me.chaeyoung.jpastudy.emotion.CommentEmotion, me.chaeyoung.jpastudy.emotion.QCommentEmotion> emotions = this.<me.chaeyoung.jpastudy.emotion.CommentEmotion, me.chaeyoung.jpastudy.emotion.QCommentEmotion>createSet("emotions", me.chaeyoung.jpastudy.emotion.CommentEmotion.class, me.chaeyoung.jpastudy.emotion.QCommentEmotion.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final SetPath<me.chaeyoung.jpa.mention.CommentMention, me.chaeyoung.jpa.mention.QCommentMention> mentions = this.<me.chaeyoung.jpa.mention.CommentMention, me.chaeyoung.jpa.mention.QCommentMention>createSet("mentions", me.chaeyoung.jpa.mention.CommentMention.class, me.chaeyoung.jpa.mention.QCommentMention.class, PathInits.DIRECT2);
+    public final SetPath<me.chaeyoung.jpastudy.mention.CommentMention, me.chaeyoung.jpastudy.mention.QCommentMention> mentions = this.<me.chaeyoung.jpastudy.mention.CommentMention, me.chaeyoung.jpastudy.mention.QCommentMention>createSet("mentions", me.chaeyoung.jpastudy.mention.CommentMention.class, me.chaeyoung.jpastudy.mention.QCommentMention.class, PathInits.DIRECT2);
 
     public final StringPath message = createString("message");
 
-    public final me.chaeyoung.jpa.thread.QThread thread;
+    public final me.chaeyoung.jpastudy.thread.QThread thread;
 
-    public final me.chaeyoung.jpa.user.QUser user;
+    public final me.chaeyoung.jpastudy.user.QUser user;
 
     public QComment(String variable) {
         this(Comment.class, forVariable(variable), INITS);
@@ -52,8 +52,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public QComment(Class<? extends Comment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpa.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
-        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
+        this.thread = inits.isInitialized("thread") ? new me.chaeyoung.jpastudy.thread.QThread(forProperty("thread"), inits.get("thread")) : null;
+        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpastudy.user.QUser(forProperty("user")) : null;
     }
 
 }

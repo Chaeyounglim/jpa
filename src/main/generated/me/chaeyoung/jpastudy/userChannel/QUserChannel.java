@@ -1,4 +1,4 @@
-package me.chaeyoung.jpa.userChannel;
+package me.chaeyoung.jpastudy.userChannel;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,17 +16,17 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QUserChannel extends EntityPathBase<UserChannel> {
 
-    private static final long serialVersionUID = -769720710L;
+    private static final long serialVersionUID = 1211351287L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QUserChannel userChannel = new QUserChannel("userChannel");
 
-    public final me.chaeyoung.jpa.channel.QChannel channel;
+    public final me.chaeyoung.jpastudy.channel.QChannel channel;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final me.chaeyoung.jpa.user.QUser user;
+    public final me.chaeyoung.jpastudy.user.QUser user;
 
     public QUserChannel(String variable) {
         this(UserChannel.class, forVariable(variable), INITS);
@@ -46,8 +46,8 @@ public class QUserChannel extends EntityPathBase<UserChannel> {
 
     public QUserChannel(Class<? extends UserChannel> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.channel = inits.isInitialized("channel") ? new me.chaeyoung.jpa.channel.QChannel(forProperty("channel")) : null;
-        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpa.user.QUser(forProperty("user")) : null;
+        this.channel = inits.isInitialized("channel") ? new me.chaeyoung.jpastudy.channel.QChannel(forProperty("channel")) : null;
+        this.user = inits.isInitialized("user") ? new me.chaeyoung.jpastudy.user.QUser(forProperty("user")) : null;
     }
 
 }
