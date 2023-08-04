@@ -30,4 +30,10 @@ public class CommentEmotion extends Emotion {
   Comment comment;
 
 
+  @Override
+  public String toString() {
+    return "[댓글 이모지] commentE_id: " + this.id + ", body: " + this.body
+        + ", user_id: " + this.user.getId();// + ", comment_id: " + this.comment.getId();
+  }
+
 }

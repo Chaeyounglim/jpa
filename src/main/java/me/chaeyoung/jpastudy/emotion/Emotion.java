@@ -27,7 +27,7 @@ public class Emotion {
   @Getter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
-  private Long id;
+  protected Long id;
 
   protected String body; // 실제 emotion이 들어감 !
 

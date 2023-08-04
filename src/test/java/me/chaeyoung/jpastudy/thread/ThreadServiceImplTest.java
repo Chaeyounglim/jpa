@@ -169,13 +169,34 @@ class ThreadServiceImplTest {
     // DB 에서 조회해오는 부분이 XX
     // when
     var pageDto = PageDTO.builder().currentPage(1).size(100).build();
-    var mentionedTheadList = threadService.selectMentionedTheadList(Long.getLong("2"), pageDto);
-    System.out.println(mentionedTheadList.toString()); // -> 0으로 나옴. why?
+    var mentionedTheadList = threadService.selectMentionedTheadList(threadMentionedUser.getId(),
+        pageDto);
+
+    // 스레드 출력
+    mentionedTheadList.getContent().forEach(thread -> {
+      // 스레드 출력 -> 잘됨.
+      System.out.println(thread.toString());
+      // 댓글 출력 -> 잘됨.
+      thread.getComments().forEach(comment -> {
+        System.out.println(comment.toString());
+        // 댓글 이모지 출력 -> 잘됨.
+        comment.getEmotions().forEach(commentEmotion -> {
+          System.out.println(commentEmotion.toString());
+        });
+      });
+      // 스레드 이모지 출력
+      thread.getEmotions().forEach(threadEmotion -> {
+        System.out.println(threadEmotion.toString());
+      });
+      // 스레드 멘션
+      thread.getMentions().forEach(threadMention -> {
+        System.out.println(threadMention.toString());
+      });
+    });
 
     // then
     assert mentionedTheadList.getTotalElements() == 2; // 사이즈가 두 개가 나와야 함
   }
-
 
   // User 정보 저장 메서드
   private User getTestUser(String username, String password) {
@@ -207,7 +228,8 @@ class ThreadServiceImplTest {
   }
 
   // Thread 정보 저장 메서드 (ThreadEmotion 이랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
-  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+  private Thread getTestThread(String message, Channel channel, User threadUser, User
+      mentionedUser,
       User emotionUser, String emotionValue) {
     var newThead = getTestThread(message, channel, threadUser, mentionedUser);
     newThead.addEmotion(emotionUser, emotionValue);
@@ -216,7 +238,8 @@ class ThreadServiceImplTest {
 
   // Thread 정보 저장 및 댓글에 영속성 전이를 통해 DB에 저장 메서드
   // (Comment 객체 생성한 후 이를 Thread 랑 연관관계 설정) -> cascade 속성을 통해 DB에 저장
-  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+  private Thread getTestThread(String message, Channel channel, User threadUser, User
+      mentionedUser,
       User emotionUser, String emotionValue, User commentUser, String commentMessage) {
     var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser,
         emotionValue);
@@ -225,7 +248,8 @@ class ThreadServiceImplTest {
   }
 
   // Thread 정보 저장 및
-  private Thread getTestThread(String message, Channel channel, User threadUser, User mentionedUser,
+  private Thread getTestThread(String message, Channel channel, User threadUser, User
+      mentionedUser,
       User emotionUser, String emotionValue, User commentUser, String commentMessage,
       User commentEmotionuser, String commentEmotionValue) {
     var newThead = getTestThread(message, channel, threadUser, mentionedUser, emotionUser,

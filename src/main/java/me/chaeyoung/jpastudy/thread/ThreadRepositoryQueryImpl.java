@@ -34,11 +34,6 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
     var threads = query.fetch();
     long totalSize = countQuery(cond).fetch().get(0); // 첫 번째 응답값
 
-/*    var lists = threads.stream().map(Thread::getComments)
-        .forEach(comments -> comments
-            .forEach(Comment::getMessage));
-    */
-
     threads.stream()
         .map(Thread::getComments)
         .forEach(comments -> comments
@@ -54,6 +49,7 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
         .leftJoin(thread.channel).fetchJoin() // Lazy로 설정된 애들을 조회해온다는 의미
         .leftJoin(thread.emotions).fetchJoin()
         .leftJoin(thread.comments).fetchJoin()
+        .leftJoin(thread.mentions).fetchJoin()
         .where(
             channelIdEq(cond.getChannelId()),
             mentionedUserIdEq(cond.getMentionedUserId())
